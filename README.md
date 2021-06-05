@@ -1,46 +1,39 @@
-# Getting Started with Create React App
+> Hello everybody. My name is Aleksandr and I`m from Russia, Rostov-on-Don.  
+> Im junior ~~frontend developer~~!  
+> This is my pet project (task tracker) on reactjs   
+> My email: box-570@yandex.ru  
+> My telegram: @Papi180  
+> My [VK]
+---
+> This is Single Page application. React applications without using third-party libraries in terms of state management, working with workers and event management. As an application, it is proposed to write a task tracker with a division into front-end and back-end parts. Interaction between the parts of the application inside the browser is supposed to be done through messaging (postMessage), with the server part through XmlHttpRequest (fetch).
+---
+##### auth
+![auth](https://github.com/aleksandrtamrazov/task-tracker/blob/master/src/assets/img/sequenceDiagrams/Auth.png?raw=true)
+##### add user
+![add user](https://github.com/aleksandrtamrazov/task-tracker/blob/master/src/assets/img/sequenceDiagrams/AddUser.png?raw=true)
+##### recovery user
+![recovery user](https://github.com/aleksandrtamrazov/task-tracker/blob/master/src/assets/img/sequenceDiagrams/RecoveryUser.png?raw=true)
+##### edit user
+![edit user](https://github.com/aleksandrtamrazov/task-tracker/blob/master/src/assets/img/sequenceDiagrams/EditUser.png?raw=true)
+##### add task
+![add task](https://github.com/aleksandrtamrazov/task-tracker/blob/master/src/assets/img/sequenceDiagrams/AddTask.png?raw=true)
+##### edit task
+![edit task](https://github.com/aleksandrtamrazov/task-tracker/blob/master/src/assets/img/sequenceDiagrams/EditTask.png?raw=true)
+##### get task list
+![get task list](https://github.com/aleksandrtamrazov/task-tracker/blob/master/src/assets/img/sequenceDiagrams/GetTaskList.png?raw=true)
+### In this project I used:
+* [Reactjs]
+* [Webpack]
+---
+[//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+   [Reactjs]: <https://reactjs.org/>
+   [Redux]: <https://redux.js.org//>
+   [react-router-dom]: <https://reacttraining.com/react-router/web/guides/quick-start/>
+   [Bootstrap]: <https://getbootstrap.com>
+   [react-hook-form]: <https://react-hook-form.com/>
+   [Axios]: <https://github.com/axios/axios>
+   [Webpack]: <https://webpack.js.org/>
+   [VK]: <https://vk.com/aleksandrtamrazov>
+   [Appevent]: <https://appevent.ru/dev/task1/catalog/>
