@@ -8,19 +8,19 @@
 > This is Single Page application. React applications without using third-party libraries in terms of state management, working with workers and event management. As an application, it is proposed to write a task tracker with a division into front-end and back-end parts. Interaction between the parts of the application inside the browser is supposed to be done through messaging (postMessage), with the server part through XmlHttpRequest (fetch).
 ---
 ##### auth
-![auth](https://github.com/aleksandrtamrazov/task-tracker/blob/master/src/assets/img/sequenceDiagrams/Auth.png?raw=true)
+![auth](https://github.com/aleksandrtamrazov/task-tracker/blob/master/src/assets/images/sequenceDiagrams/Auth.png?raw=true)
 ##### add user
-![add user](https://github.com/aleksandrtamrazov/task-tracker/blob/master/src/assets/img/sequenceDiagrams/AddUser.png?raw=true)
+![add user](https://github.com/aleksandrtamrazov/task-tracker/blob/master/src/assets/images/sequenceDiagrams/AddUser.png?raw=true)
 ##### recovery user
-![recovery user](https://github.com/aleksandrtamrazov/task-tracker/blob/master/src/assets/img/sequenceDiagrams/RecoveryUser.png?raw=true)
+![recovery user](https://github.com/aleksandrtamrazov/task-tracker/blob/master/src/assets/images/sequenceDiagrams/RecoveryUser.png?raw=true)
 ##### edit user
-![edit user](https://github.com/aleksandrtamrazov/task-tracker/blob/master/src/assets/img/sequenceDiagrams/EditUser.png?raw=true)
+![edit user](https://github.com/aleksandrtamrazov/task-tracker/blob/master/src/assets/images/sequenceDiagrams/EditUser.png?raw=true)
 ##### add task
-![add task](https://github.com/aleksandrtamrazov/task-tracker/blob/master/src/assets/img/sequenceDiagrams/AddTask.png?raw=true)
+![add task](https://github.com/aleksandrtamrazov/task-tracker/blob/master/src/assets/images/sequenceDiagrams/AddTask.png?raw=true)
 ##### edit task
-![edit task](https://github.com/aleksandrtamrazov/task-tracker/blob/master/src/assets/img/sequenceDiagrams/EditTask.png?raw=true)
+![edit task](https://github.com/aleksandrtamrazov/task-tracker/blob/master/src/assets/images/sequenceDiagrams/EditTask.png?raw=true)
 ##### get task list
-![get task list](https://github.com/aleksandrtamrazov/task-tracker/blob/master/src/assets/img/sequenceDiagrams/GetTaskList.png?raw=true)
+![get task list](https://github.com/aleksandrtamrazov/task-tracker/blob/master/src/assets/images/sequenceDiagrams/GetTaskList.png?raw=true)
 ### In this project I used:
 * [Reactjs]
 * [Webpack]
