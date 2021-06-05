@@ -1,0 +1,140 @@
+import React, {useContext, useState, useEffect} from 'react';
+import {Form, Button} from 'react-bootstrap';
+import {useForm, Controller} from 'react-hook-form';
+import {StateContext} from '../../state/stateContex';
+import {Profile} from '../../types/types';
+import {getProfileRequest, editProfileRequest} from '../../requests/requests';
+
+export interface ProfileComponentProps {
+}
+ 
+const ProfileComponent: React.SFC<ProfileComponentProps> = () => {
+  const [state, setState] = useContext(StateContext);
+  const [profile, setProfile] = useState<Profile | any>(null);
+  const [errors, setErrors] = useState<any>({});
+  const form = useForm();
+
+  const onSubmit = (data: any) => {
+    const res = editProfileRequest({
+      ...data,
+      id: state.id,
+    });
+    res.then((data) => {
+      if(!!data.errors) {
+        setErrors(data.errors);
+      } else {
+        console.log(data);
+        setErrors({});
+        setProfile(data.user);
+      }
+    })
+  };
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const res: {user: Profile} = await getProfileRequest(state.id);
+      console.log(profile);
+      setProfile(res.user);
+    }
+
+    fetchProfile();
+  }, []);
+
+  useEffect(() => {
+    if (!!profile) {
+      form.reset({
+        name: profile.name,
+        email: profile.email,
+        fullname: profile.fullname,
+        password: profile.password,
+        secretQuestion: profile.secretQuestion,
+        secretAnswer: profile.secretAnswer,
+      })
+    }
+  }, [profile]);
+
+  return (
+    <div>
+      { !!profile &&
+        <div>
+          <Form onSubmit={form.handleSubmit(onSubmit)}>
+            <Controller
+              control={form.control}
+              render={({field}) => (
+                <Form.Group style={{marginBottom: 16}}>
+                    <Form.Label>Имя</Form.Label>
+                    <Form.Control autoComplete='off' {...field} placeholder="Введите имя" />
+                    {!!errors && errors.name && <Form.Text style={{color: 'red'}} >{errors.name}</Form.Text>}
+                  </Form.Group>
+              )}
+              name="name"
+            />
+            <Controller
+              control={form.control}
+              render={({field}) => (
+                <Form.Group style={{marginBottom: 16}}>
+                    <Form.Label>Тип</Form.Label>
+                    <Form.Control {...field} placeholder="Введите email" />
+                    {!!errors && errors.email && <Form.Text style={{color: 'red'}} >{errors.email}</Form.Text>}
+                  </Form.Group>
+              )}
+              name="email"
+            />
+            <Controller
+              control={form.control}
+              render={({field}) => (
+                <Form.Group style={{marginBottom: 16}}>
+                    <Form.Label>Полное имя</Form.Label>
+                    <Form.Control {...field} placeholder="Введите Полное имя" />
+                    {!!errors && errors.fullname && <Form.Text style={{color: 'red'}} >{errors.fullname}</Form.Text>}
+                  </Form.Group>
+              )}
+              name="fullname"
+            />
+            <Controller
+              control={form.control}
+              render={({field}) => (
+                <Form.Group style={{marginBottom: 16}}>
+                    <Form.Label>Пароль</Form.Label>
+                    <Form.Control {...field} placeholder="Введите пароль" />
+                    {!!errors && errors.password && <Form.Text style={{color: 'red'}} >{errors.password}</Form.Text>}
+                  </Form.Group>
+              )}
+              name="password"
+            />
+            <Controller
+              control={form.control}
+              render={({field}) => (
+                <Form.Group style={{marginBottom: 16}}>
+                    <Form.Label>Секретный вопрос</Form.Label>
+                    <Form.Control {...field} placeholder="Введите секретный вопрос" />
+                    {!!errors && errors.secretQuestion && <Form.Text style={{color: 'red'}} >{errors.secretQuestion}</Form.Text>}
+                  </Form.Group>
+              )}
+              name="secretQuestion"
+            />
+            <Controller
+              control={form.control}
+              render={({field}) => (
+                <Form.Group style={{marginBottom: 16}}>
+                    <Form.Label>Ответ на вопрос</Form.Label>
+                    <Form.Control {...field} placeholder="Введите ответ на вопрос" />
+                    {!!errors && errors.secretAnswere && <Form.Text style={{color: 'red'}} >{errors.secretAnswer}</Form.Text>}
+                  </Form.Group>
+              )}
+              name="secretAnswer"
+            />
+          </Form>
+          <Button variant="primary" onClick={form.handleSubmit(onSubmit)}>
+            Сохранить
+          </Button>
+          <Button style={{marginLeft: 10}} variant="danger" onClick={() => setState({...state, isLogin: false})}>
+            Выйти
+          </Button>
+        </div>
+      }
+    </div>
+  );
+}
+ 
+export default ProfileComponent;
