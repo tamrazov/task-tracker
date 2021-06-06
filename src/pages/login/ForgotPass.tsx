@@ -31,7 +31,7 @@ const ForgorPass: React.SFC<ForgorPassProps> = () => {
       if (answer == secretAnswer) {
         setState({
           ...state,
-          id: data.id,
+          id: id,
           isLogin: true
         });
         history.push('/tasks');

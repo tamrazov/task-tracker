@@ -4,6 +4,7 @@ import {useForm, Controller} from 'react-hook-form';
 import {StateContext} from '../../state/stateContex';
 import {Profile} from '../../types/types';
 import {getProfileRequest, editProfileRequest} from '../../requests/requests';
+import ButtonWithLoader from '../../ui/ButtonWithLoader/ButtonWithLoader';
 
 export interface ProfileComponentProps {
 }
@@ -13,8 +14,10 @@ const ProfileComponent: React.SFC<ProfileComponentProps> = () => {
   const [profile, setProfile] = useState<Profile | any>(null);
   const [errors, setErrors] = useState<any>({});
   const form = useForm();
+  const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = (data: any) => {
+    setIsLoading(true);
     const res = editProfileRequest({
       ...data,
       id: state.id,
@@ -28,6 +31,7 @@ const ProfileComponent: React.SFC<ProfileComponentProps> = () => {
         setProfile(data.user);
       }
     })
+    setTimeout(() => setIsLoading(false), 1000);
   };
 
   useEffect(() => {
@@ -125,9 +129,12 @@ const ProfileComponent: React.SFC<ProfileComponentProps> = () => {
               name="secretAnswer"
             />
           </Form>
-          <Button variant="primary" onClick={form.handleSubmit(onSubmit)}>
-            Сохранить
-          </Button>
+          <ButtonWithLoader
+            text='Сохранить'
+            isLoading={isLoading}
+            variant="primary"
+            handleClick={form.handleSubmit(onSubmit)}
+          />
           <Button style={{marginLeft: 10}} variant="danger" onClick={() => setState({...state, isLogin: false})}>
             Выйти
           </Button>
