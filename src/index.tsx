@@ -74,7 +74,6 @@ createServer({
       return schema.tasks.all();
     });
 
-
     this.get("/users", (schema: any) => {
       return schema.users.all();
     });
@@ -106,7 +105,6 @@ createServer({
       let user =  schema.users.find(id);
       return user;
     });
-
 
     this.post("/login", (schema, request) => {
       let {email, password} = JSON.parse(request.requestBody)

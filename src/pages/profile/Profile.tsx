@@ -143,5 +143,5 @@ const ProfileComponent: React.SFC<ProfileComponentProps> = () => {
     </div>
   );
 }
- 
+
 export default ProfileComponent;

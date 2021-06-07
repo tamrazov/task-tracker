@@ -14,7 +14,7 @@ type FormData = {
 
 export interface ForgorPassProps {
 }
- 
+
 const ForgorPass: React.SFC<ForgorPassProps> = () => {
  const history = useHistory();
   const [state, setState] = useContext(StateContext);
@@ -95,6 +95,6 @@ const ForgorPass: React.SFC<ForgorPassProps> = () => {
       </div>
     </React.Fragment>
   );
-}
+};
  
 export default ForgorPass;

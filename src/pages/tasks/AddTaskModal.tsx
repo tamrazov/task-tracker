@@ -118,6 +118,6 @@ const AddTaskModal: React.SFC<AddTaskModalProps> = () => {
       </Modal>
     </React.Fragment>
   );
-}
- 
+};
+
 export default AddTaskModal;

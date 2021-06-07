@@ -18,4 +18,4 @@ export const users = [
     secretQuestion: "How old are you?",
     secretAnswer: "1"
   },
-]
+];

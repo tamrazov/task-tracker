@@ -14,7 +14,7 @@ type FormData = {
 
 export interface LoginProps {
 }
- 
+
 const Login: React.SFC<LoginProps> = () => {
   const history = useHistory();
   const [state, setState] = useContext(StateContext);
@@ -84,6 +84,6 @@ const Login: React.SFC<LoginProps> = () => {
       </div>
     </React.Fragment>
   );
-}
+};
  
 export default Login;

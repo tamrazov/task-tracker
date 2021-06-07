@@ -5,7 +5,7 @@ import Profile from '../profile/Profile';
 
 export interface MainProps {
 }
- 
+
 const Main: React.SFC<MainProps> = () => {
   const [state, setState] = useContext(StateContext);
 
@@ -18,6 +18,6 @@ const Main: React.SFC<MainProps> = () => {
       }
     </React.Fragment>
   );
-}
- 
+};
+
 export default Main;

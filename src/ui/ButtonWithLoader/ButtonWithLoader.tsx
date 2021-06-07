@@ -21,5 +21,5 @@ const ButtonWithLoader: React.SFC<ButtonWithLoaderProps> = (
     </Button>
   );
 };
- 
+
 export default ButtonWithLoader;

@@ -9,7 +9,7 @@ import {registerRequest} from '../../requests/requests';
 
 export interface RegistrationProps {
 }
- 
+
 const Registration: React.SFC<RegistrationProps> = () => {
     const history = useHistory();
   const [state, setState] = useContext(StateContext);
@@ -128,6 +128,6 @@ const Registration: React.SFC<RegistrationProps> = () => {
       </div>
     </React.Fragment>
   );
-}
- 
+};
+
 export default Registration;

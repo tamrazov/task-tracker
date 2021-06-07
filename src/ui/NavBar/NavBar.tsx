@@ -27,6 +27,6 @@ const NavBar: React.SFC<NavBarProps> = () => {
       </Navbar>
     </React.Fragment>
   );
-}
- 
+};
+
 export default NavBar;

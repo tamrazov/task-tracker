@@ -9,33 +9,33 @@ import Main from './pages/login/Main';
 import Tasks from './pages/tasks/Tasks';
 
 const App: React.SFC = () => {
-    return (
-      <StateProvider>
-        <Router>
-            <div>
-              <NavBar />
-              <div style={{paddingLeft: 50, paddingRight: 50}}>
-                <Switch>
-                  <Route exact path="/">
-                    <div>Home</div>
-                  </Route>
-                  <Route path="/tasks" exact component={Tasks} />
-                  <Route path="/login" exact component={Main} />
-                  <Route path="/registration" exact>
-                    <Registration />
-                  </Route>
-                  <Route path="/forgotpass" exact>
-                    <ForgotPass />
-                  </Route>
-                  <Route>
-                    <div>Page not found</div>
-                  </Route>
-                </Switch>
-              </div>
-            </div>
-        </Router>
-      </StateProvider>
-    );
+  return (
+    <StateProvider>
+      <Router>
+        <div>
+          <NavBar />
+          <div style={{paddingLeft: 50, paddingRight: 50}}>
+            <Switch>
+              <Route exact path="/">
+                <div>Home</div>
+              </Route>
+              <Route path="/tasks" exact component={Tasks} />
+              <Route path="/login" exact component={Main} />
+              <Route path="/registration" exact>
+                <Registration />
+              </Route>
+              <Route path="/forgotpass" exact>
+                <ForgotPass />
+              </Route>
+              <Route>
+                <div>Page not found</div>
+              </Route>
+            </Switch>
+          </div>
+        </div>
+      </Router>
+    </StateProvider>
+  );
 }
  
 export default App;
