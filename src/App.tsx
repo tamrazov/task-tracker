@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter as Router,Switch,Route,Redirect} from "react-router-dom";
+import {BrowserRouter as Router,Switch,Route} from "react-router-dom";
 import {StateProvider} from './state/stateContex';
 import 'bootstrap/dist/css/bootstrap.min.css'; // bootstrap styles;
 import NavBar from './ui/NavBar/NavBar';

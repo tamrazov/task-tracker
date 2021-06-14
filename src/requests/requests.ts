@@ -58,15 +58,16 @@ export const forgotEmailRequest = async (email: string) => {
   }
 }
 
-export const getTasksListRequest = async () => {
+export const getTasksListRequest = async (name?: string) => {
   try {
-    const res = await fetch(`/api/tasks`, {
+    const res = await fetch(`/api/tasks?name=${name}`, {
       method: 'GET',
     })
+
     return await res.json();
   } catch (error) {
     console.log(error, 'hello from error');
-    throw new Error(error);
+    throw new Error(error); 
   }
 }
 

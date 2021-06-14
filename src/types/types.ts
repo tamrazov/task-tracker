@@ -33,6 +33,7 @@ export type TaskType = {
 
 export type TasksListType = {
   list: TaskType[];
+  errors?: any;
 };
 
 export type Profile = {

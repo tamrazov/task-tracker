@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {TaskType} from './types/types';
+import { Response } from 'miragejs';
 
 import {createServer, Model} from "miragejs";
 import {tasks, users} from './db';
@@ -19,15 +21,21 @@ createServer({
   seeds(server) {
     server.create('user', users[0]);
     server.create('task', tasks[0]);
+    server.create('task', tasks[1]);
+    server.create('task', tasks[2]);
+    server.create('task', tasks[3]);
   },
   routes() {
     this.namespace = 'api';
 
-    this.get("/tasks", (schema: any) => {
-      let taskss = schema.tasks.all().models;
+    this.get("/tasks", (schema: any, request) => {
+      const {name} = request.queryParams;
+      let tasks = schema.tasks.all().models.filter((task: TaskType) => !!name ? task.name.match(name) : true);
       return {
-        list: taskss
+        list: tasks
       }
+
+      // return new Response(500, { some: 'header' }, { errors: {error: 'server '} });
     });
 
     this.post("/tasks", (schema: any, request) => {
@@ -80,7 +88,7 @@ createServer({
 
     this.get("/profile/:id", (schema: any, request) => {
       let id = request.params.id;
-      let user =  schema.users.find(id);
+      let user = schema.users.find(id);
       return user;
     });
 
