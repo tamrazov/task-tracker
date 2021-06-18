@@ -56,7 +56,6 @@ createServer({
     this.put("/tasks/:id", (schema: any, request) => {
       let id = request.params.id;
       let attrs = JSON.parse(request.requestBody);
-      console.log(attrs,  'attrs')
       let errors: {[key: string]: string} = {};
       for (let key of [
         'name',

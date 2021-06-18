@@ -26,7 +26,6 @@ const ProfileComponent: React.SFC<ProfileComponentProps> = () => {
       if(!!data.errors) {
         setErrors(data.errors);
       } else {
-        console.log(data);
         setErrors({});
         setProfile(data.user);
       }
@@ -37,7 +36,6 @@ const ProfileComponent: React.SFC<ProfileComponentProps> = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       const res: {user: Profile} = await getProfileRequest(state.id);
-      console.log(profile);
       setProfile(res.user);
     }
 
