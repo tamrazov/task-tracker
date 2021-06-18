@@ -8,7 +8,7 @@ import { Response } from 'miragejs';
 
 import {createServer, Model} from "miragejs";
 import {tasks, users} from './db';
-import {validateEmail} from './utils/utils';
+import {validateEmail, getRandomArg} from './utils/utils';
 import isEmpty from 'lodash.isempty';
 
 export const TOKEN = 'QpwL5tke4Pnpja7X4';
@@ -31,11 +31,8 @@ createServer({
     this.get("/tasks", (schema: any, request) => {
       const {name} = request.queryParams;
       let tasks = schema.tasks.all().models.filter((task: TaskType) => !!name ? task.name.match(name) : true);
-      return {
-        list: tasks
-      }
 
-      // return new Response(500, { some: 'header' }, { errors: {error: 'server '} });
+      return getRandomArg({list: tasks}, new Response(500, { some: 'header' }, { errors: {error: 'server '} }));
     });
 
     this.post("/tasks", (schema: any, request) => {

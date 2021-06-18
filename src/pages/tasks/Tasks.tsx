@@ -28,11 +28,13 @@ const Tasks: React.SFC<TasksProps> = () => {
     res.then((data) => {
       if (!!data.errors && !!data.errors.error) {
         setError(data.errors.error);
+      } else {
+        setState({
+          ...state,
+          tasks: data.list
+        });
+        setError('');
       }
-      setState({
-        ...state,
-        tasks: data.list
-      })
     });
   }
 

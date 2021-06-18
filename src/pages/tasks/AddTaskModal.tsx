@@ -22,7 +22,6 @@ const AddTaskModal: React.SFC<AddTaskModalProps> = () => {
   const handleShow = () => setShow(true);
 
   const onSubmit = (data: any) => {
-    console.log(moment(data))
     const res = addTaskRequest({
       ...data,
       time_start: moment(data.time_start).format('YYYY-MM-DD'),

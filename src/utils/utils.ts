@@ -4,10 +4,10 @@ export const validateEmail = (email: string): boolean => {
 };
 
 export const debounce = <F extends ((...args: any) => any)>(func: F, waitFor: number) => {
-  let timeout: any = 0;
+  let timeout: number = 0;
   const debounced = (...args: any) => {
     clearTimeout(timeout);
-    timeout = setTimeout(() => func(...args), waitFor);
+    timeout = window.setTimeout(() => func(...args), waitFor);
   };
   
   return debounced as (...args: Parameters<F>) => ReturnType<F>;
@@ -18,5 +18,11 @@ export const pingServer = <F extends ((...args: any[]) => void)>(func: F, limit:
 
   return function (...args: any) {
     interval = setInterval(() => func(...args), limit);
-  }
-}
+  };
+};
+
+export const getRandomArg = (...args: any[]) => {
+  let random = Math.floor(Math.random() * args.length);
+
+  return args[random];
+};
