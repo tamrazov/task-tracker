@@ -13,7 +13,13 @@ export interface AddTaskModalProps {
  
 const AddTaskModal: React.SFC<AddTaskModalProps> = () => {
   const history = useHistory();
-  const form = useForm();
+  const form = useForm({defaultValues: {
+    name: '',
+    status: '0',
+    priority: '0',
+    time_start: new Date(),
+    time_end: new Date(),
+  }});
   const [state, setState] = useContext(StateContext);
   const [errors, setErrors] = useState<any>({});
   const [show, setShow] = useState(false);
@@ -24,6 +30,8 @@ const AddTaskModal: React.SFC<AddTaskModalProps> = () => {
   const onSubmit = (data: any) => {
     const res = addTaskRequest({
       ...data,
+      status: +data.status,
+      priority: +data.priority,
       time_start: moment(data.time_start).format('YYYY-MM-DD'),
       time_end: moment(data.time_end).format('YYYY-MM-DD')
     });
@@ -44,7 +52,7 @@ const AddTaskModal: React.SFC<AddTaskModalProps> = () => {
 
   return (
     <React.Fragment>
-      <Button onClick={handleShow}>Добавить задачу</Button>
+      <Button className="button-add" size="sm" onClick={handleShow}>Добавить задачу</Button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Добавить задачу</Modal.Title>
@@ -61,20 +69,41 @@ const AddTaskModal: React.SFC<AddTaskModalProps> = () => {
                   </Form.Group>
               )}
               name="name"
-              defaultValue=""
             />
-            <Controller
-              control={form.control}
-              render={({field}) => (
-                <Form.Group style={{marginBottom: 16}}>
-                    <Form.Label>Тип</Form.Label>
-                    <Form.Control {...field} placeholder="Введите тип" />
-                    {!!errors && errors.type && <Form.Text style={{color: 'red'}} >{errors.type}</Form.Text>}
-                  </Form.Group>
-              )}
-              name="type"
-              defaultValue=""
-            />
+            <Form.Group style={{marginBottom: 16}}>
+              <Form.Label>Статус</Form.Label>
+              <Controller
+                render={
+                  ({ field }) =>
+                  <Form.Control {...field} as="select">
+                    <option value="0">Выберите статус</option>
+                    <option value="1">Отложенна</option>
+                    <option value="2">В работе</option>
+                    <option value="3">Выполнена</option>
+                  </Form.Control>
+                }
+                control={form.control}
+                name="status"
+              />
+              {!!errors && errors.status && <Form.Text style={{color: 'red'}}>{errors.status}</Form.Text>}
+            </Form.Group>
+            <Form.Group style={{marginBottom: 16}}>
+              <Form.Label>Приоритет</Form.Label>
+              <Controller
+                render={
+                  ({ field }) =>
+                  <Form.Control {...field} as="select">
+                    <option value="0">Выберите приоритет</option>
+                    <option value="1">низкий</option>
+                    <option value="2">важно</option>
+                    <option value="3">очень важно</option>
+                  </Form.Control>
+                }
+                control={form.control}
+                name="priority"
+              />
+              {!!errors && errors.priority && <Form.Text style={{color: 'red'}}>{errors.priority}</Form.Text>}
+            </Form.Group>
             <Controller
               name="time_start"
               control={form.control}
@@ -86,6 +115,7 @@ const AddTaskModal: React.SFC<AddTaskModalProps> = () => {
                     selected={field.value}
                     onChange={field.onChange}
                     className="datepicker"
+                    customInput={<Form.Control autoComplete='off' />}
                   />
                   {!!errors && errors.time_start && <Form.Text style={{color: 'red'}}>{errors.time_start}</Form.Text>}
                 </Form.Group>
@@ -102,6 +132,7 @@ const AddTaskModal: React.SFC<AddTaskModalProps> = () => {
                     selected={field.value}
                     onChange={field.onChange}
                     className="datepicker"
+                    customInput={<Form.Control autoComplete='off' />}
                   />
                   {!!errors && errors.time_end && <Form.Text style={{color: 'red'}}>{errors.time_end}</Form.Text>}
                 </Form.Group>

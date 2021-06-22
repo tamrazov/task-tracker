@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState, useCallback} from 'react';
 import {StateContext} from '../../state/stateContex';
 import {TasksListType, TaskType} from '../../types/types';
 import {getTasksListRequest} from '../../requests/requests';
-import {Form} from 'react-bootstrap';
+import {Form, Button} from 'react-bootstrap';
 import DatePicker from "react-datepicker";
 import moment from 'moment';
 import {debounce} from '../../utils/utils';
@@ -15,6 +15,7 @@ export interface TasksProps {
  
 const Tasks: React.SFC<TasksProps> = () => {
   const [state, setState] = useContext(StateContext);
+  const [visibleFilters, setVisibleFilters] = useState(false);
   const [filters, setFilters] = useState({
     name: false,
     date: false,
@@ -68,16 +69,11 @@ const Tasks: React.SFC<TasksProps> = () => {
           <div className="task-container">
             <div>
               <AddTaskModal />
+              <Button className="filters-button" size="sm" onClick={() => setVisibleFilters(!visibleFilters)}>Фильтры</Button>
               <div className="col-12" style={{display: 'flex'}}>
-                {!!filters &&
+                {!!filters && !!visibleFilters &&
                   <React.Fragment>
                     <Form.Group>
-                      <Form.Check
-                        type="checkbox"
-                        label='Включить фильтр по имени'
-                        defaultChecked={false}
-                        onChange={() => {setFilters({...filters, name: !filters.name}); setName('')}}
-                      />
                       <Form.Label>Фильтр по названию</Form.Label>
                       <Form.Control
                         value={name}
@@ -86,17 +82,13 @@ const Tasks: React.SFC<TasksProps> = () => {
                       />
                     </Form.Group>
                     <Form.Group style={{display: 'flex', flexDirection: 'column'}}>
-                      <Form.Check
-                        type="checkbox"
-                        label='Включить фильтр по дате'
-                        defaultChecked={false}
-                        onChange={() => setFilters({...filters, date: !filters.date})}
-                      />
                       <Form.Label>Фильтр по дате</Form.Label>
                       <DatePicker
+                        showTimeSelect
                         selected={date}
-                        onChange={(value: any) => setDate(value)}
+                        onChange={(value: any) => console.log(value)}
                         className="datepicker"
+                        customInput={<Form.Control />}
                       />
                     </Form.Group>
                   </React.Fragment>

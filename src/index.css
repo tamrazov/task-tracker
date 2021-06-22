@@ -16,6 +16,8 @@ code {
   flex: 1;
   min-height: 200px;
   min-width: 200px;
+  max-width: 100px;
+  border-radius: 4px;
   cursor: pointer;
   padding: 10px;
   margin: 10px;
@@ -33,4 +35,32 @@ code {
 
 .datepicker {
   margin-left: 10px;
+}
+
+.filters-button {
+  margin-left: 15px;
+}
+
+.pull-left {
+  position: absolute;
+  right: 0px;
+}
+
+.profile-button {
+  margin-right: 50px;
+}
+
+.home-container {
+  margin-top: 30px;
+}
+
+.flex-row-start {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.hr-priority {
+  height: 5px;
+  opacity: 1;
 }

@@ -13,13 +13,16 @@ export interface TaskProps {
   task: TaskType
 }
  
-const Task: React.SFC<TaskProps> = ({task}) => {
+const Task = ({task}: TaskProps) => {
   const form = useForm({
     defaultValues: {
       name: task.name,
-      type: task.type,
+      priority: task.priority,
+      status: task.status,
       time_start: new Date(task.time_start),
-      time_end: new Date(task.time_end)
+      time_end: new Date(task.time_end),
+      fact_time_start: new Date(task.fact_time_start) || new Date(),
+      fact_time_end: new Date(task.fact_time_end)|| new Date(),
     }
   });
   const [state, setState] = useContext(StateContext);
@@ -33,9 +36,12 @@ const Task: React.SFC<TaskProps> = ({task}) => {
   const handleShow = () => {
     form.reset({
       name: task.name,
-      type: task.type,
+      priority: task.priority,
+      status: task.status,
       time_start: new Date(task.time_start),
-      time_end: new Date(task.time_end)
+      time_end: new Date(task.time_end),
+      fact_time_start: new Date(),
+      fact_time_end: new Date(),
     });
     setShow(true);
   }
@@ -45,7 +51,9 @@ const Task: React.SFC<TaskProps> = ({task}) => {
       ...data,
       id: task.id,
       time_start: moment(data.time_start).format('MM/DD/YYYY'),
-      time_end: moment(data.time_end).format('MM/DD/YYYY')
+      time_end: moment(data.time_end).format('MM/DD/YYYY'),
+      fact_time_start: moment(data.fact_time_start).format('MM/DD/YYYY'),
+      fact_time_end: moment(data.fact_time_end).format('MM/DD/YYYY'),
     });
     res.then((data) => {
       if(!!data.errors) {
@@ -76,11 +84,12 @@ const Task: React.SFC<TaskProps> = ({task}) => {
   return (
     <React.Fragment>
       <div onClick={handleShow} className='task'>
+        <hr className="hr-priority" style={{backgroundColor: 'red'}} />
         <p>
           {task.name}
         </p>
          <p>
-          {task.type}
+          {task.status}
         </p>
       </div>
 
@@ -110,9 +119,9 @@ const Task: React.SFC<TaskProps> = ({task}) => {
                     {!!errors && errors.type && <Form.Text style={{color: 'red'}} >{errors.type}</Form.Text>}
                   </Form.Group>
               )}
-              name="type"
+              name="status"
             />
-            <Controller
+             <Controller
               name="time_start"
               control={form.control}
               render={({field}) => (
@@ -122,6 +131,7 @@ const Task: React.SFC<TaskProps> = ({task}) => {
                     selected={field.value}
                     onChange={field.onChange}
                     className="datepicker"
+                    customInput={<Form.Control autoComplete='off' />}
                   />
                   {!!errors && errors.time_start && <Form.Text style={{color: 'red'}}>{errors.time_start}</Form.Text>}
                 </Form.Group>
@@ -137,8 +147,41 @@ const Task: React.SFC<TaskProps> = ({task}) => {
                     selected={field.value}
                     onChange={field.onChange}
                     className="datepicker"
+                    customInput={<Form.Control autoComplete='off' placeholder="Введите имя" />}
                   />
                   {!!errors && errors.time_end && <Form.Text style={{color: 'red'}}>{errors.time_end}</Form.Text>}
+                </Form.Group>
+              )}
+            />
+            <Controller
+              name="fact_time_start"
+              control={form.control}
+              render={({field}) => (
+                <Form.Group style={{marginBottom: 16}}>
+                  <Form.Label>Фактическая дата начала</Form.Label>
+                  <DatePicker
+                    selected={field.value}
+                    onChange={field.onChange}
+                    className="datepicker"
+                    customInput={<Form.Control autoComplete='off' />}
+                  />
+                  {!!errors && errors.fact_time_start && <Form.Text style={{color: 'red'}}>{errors.fact_time_start}</Form.Text>}
+                </Form.Group>
+              )}
+            />
+            <Controller
+              name="fact_time_end"
+              control={form.control}
+              render={({field}) => (
+                <Form.Group style={{marginBottom: 16}}>
+                  <Form.Label>Фактическая дата окончания задачи</Form.Label>
+                  <DatePicker
+                    selected={field.value}
+                    onChange={field.onChange}
+                    className="datepicker"
+                    customInput={<Form.Control autoComplete='off' />}
+                  />
+                  {!!errors && errors.fact_time_end && <Form.Text style={{color: 'red'}}>{errors.fact_time_end}</Form.Text>}
                 </Form.Group>
               )}
             />

@@ -40,7 +40,8 @@ createServer({
       let errors: {[key: string]: string} = {};
       for (let key of [
         'name',
-        'type',
+        'status',
+        'priority',
         'time_start',
         'time_end',
       ]) {
@@ -59,7 +60,8 @@ createServer({
       let errors: {[key: string]: string} = {};
       for (let key of [
         'name',
-        'type',
+        'status',
+        'priority',
         'time_start',
         'time_end',
       ]) {

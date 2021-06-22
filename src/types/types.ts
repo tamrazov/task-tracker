@@ -26,9 +26,12 @@ export type ForgotType = Partial<{
 export type TaskType = {
   id: string;
   name: string;
-  type: string;
+  priority: string;
+  status: string;
   time_start: string;
   time_end: string;
+  fact_time_start: string;
+  fact_time_end: string;
 };
 
 export type TasksListType = {
