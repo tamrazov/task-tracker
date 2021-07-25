@@ -32,7 +32,8 @@ createServer({
       const {name} = request.queryParams;
       let tasks = schema.tasks.all().models.filter((task: TaskType) => !!name ? task.name.match(name) : true);
 
-      return getRandomArg({list: tasks}, new Response(500, { some: 'header' }, { errors: {error: 'server '} }));
+      return {list: tasks}
+      // return getRandomArg({list: tasks}, new Response(500, { some: 'header' }, { errors: {error: 'server '} }));
     });
 
     this.post("/tasks", (schema: any, request) => {
@@ -163,5 +164,3 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
-
-reportWebVitals(console.log);

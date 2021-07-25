@@ -58,9 +58,40 @@ code {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  flex-wrap: wrap;
 }
 
 .hr-priority {
-  height: 5px;
+  border-radius: 50%;
+  height: 20px !important;
+  width: 20px !important;
   opacity: 1;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.item-row {
+  min-width: 50px;
+  background-color: crimson;
+  transition: opacity 1s, width 1s;
+}
+
+.task-postponed-class {
+  opacity: .8;
+}
+
+.task-done-class {
+  opacity: .2;
+}
+
+.task-inprogress-class {
+  opacity: 1;
+}
+
+@keyframes changeColor {
+  from {opacity: 1;}
+  to {opacity: .5;}
 }

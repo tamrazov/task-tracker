@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {BrowserRouter as Router,Switch,Route} from "react-router-dom";
 import {StateProvider} from './state/stateContex';
 import 'bootstrap/dist/css/bootstrap.min.css'; // bootstrap styles;
@@ -10,7 +10,18 @@ import Main from './pages/login/Main';
 import Tasks from './pages/tasks/Tasks';
 import Home from './pages/home/Home';
 
+const worker = new SharedWorker("/worker.js");
+
 const App: React.SFC = () => {
+  useEffect(() => {
+    worker.port.start();
+    console.log('worker.port.start')
+    worker.port.onmessage = function (e: any) {
+      console.log(e, "e worker");
+    }
+    worker.port.postMessage('hello')
+  }, [])
+  
   return (
     <StateProvider>
       <Router>

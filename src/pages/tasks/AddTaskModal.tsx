@@ -32,8 +32,8 @@ const AddTaskModal: React.SFC<AddTaskModalProps> = () => {
       ...data,
       status: +data.status,
       priority: +data.priority,
-      time_start: moment(data.time_start).format('YYYY-MM-DD'),
-      time_end: moment(data.time_end).format('YYYY-MM-DD')
+      time_start: moment(data.time_start).toISOString(),
+      time_end: moment(data.time_end).toISOString()
     });
     res.then((data) => {
       if(!!data.errors) {
@@ -112,9 +112,11 @@ const AddTaskModal: React.SFC<AddTaskModalProps> = () => {
                 <Form.Group style={{marginBottom: 16}}>
                   <Form.Label>Дата начала</Form.Label>
                   <DatePicker
+                    dateFormat="dd-MM-yyyy, hh:mm"
                     selected={field.value}
                     onChange={field.onChange}
                     className="datepicker"
+                    showTimeSelect
                     customInput={<Form.Control autoComplete='off' />}
                   />
                   {!!errors && errors.time_start && <Form.Text style={{color: 'red'}}>{errors.time_start}</Form.Text>}
@@ -129,9 +131,11 @@ const AddTaskModal: React.SFC<AddTaskModalProps> = () => {
                 <Form.Group style={{marginBottom: 16}}>
                   <Form.Label>Дата конца</Form.Label>
                   <DatePicker
+                    dateFormat="dd-MM-yyyy, hh:mm"
                     selected={field.value}
                     onChange={field.onChange}
                     className="datepicker"
+                    showTimeSelect
                     customInput={<Form.Control autoComplete='off' />}
                   />
                   {!!errors && errors.time_end && <Form.Text style={{color: 'red'}}>{errors.time_end}</Form.Text>}
