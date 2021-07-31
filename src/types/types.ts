@@ -27,7 +27,7 @@ export type TaskType = {
   id: string;
   name: string;
   priority: string;
-  status: string;
+  status: '0' | '1' | '2' | '3';
   time_start: string;
   time_end: string;
   fact_time_start: string;
