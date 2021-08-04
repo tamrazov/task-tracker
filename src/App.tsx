@@ -10,18 +10,7 @@ import Main from './pages/login/Main';
 import Tasks from './pages/tasks/Tasks';
 import Home from './pages/home/Home';
 
-const worker = new SharedWorker("/worker.js");
-
 const App: React.SFC = () => {
-  useEffect(() => {
-    worker.port.start();
-    console.log('worker.port.start')
-    worker.port.onmessage = function (e: any) {
-      console.log(e, "e worker");
-    }
-    worker.port.postMessage('hello')
-  }, [])
-  
   return (
     <StateProvider>
       <Router>

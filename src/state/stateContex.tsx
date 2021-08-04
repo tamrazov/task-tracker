@@ -3,12 +3,17 @@ import React, { useState, createContext } from 'react';
 type StateProviderProps = {children: React.ReactNode};
 
 const StateContext = createContext<any>(undefined);
+
+const worker = new SharedWorker("/sharedWorker.js");
+
+worker.port.start();
  
 function StateProvider ({children}: StateProviderProps) {
   const [state, setState] = useState({
     isLogin: false,
     id: undefined,
-    tasks: []
+    tasks: [],
+    worker
   });
 
   return (

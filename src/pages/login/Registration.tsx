@@ -11,33 +11,35 @@ export interface RegistrationProps {
 }
 
 const Registration: React.SFC<RegistrationProps> = () => {
-    const history = useHistory();
+  const history = useHistory();
   const [state, setState] = useContext(StateContext);
+  const worker = state.worker;
   const [errors, setErrors] = useState<any>({});
   const form = useForm();
 
   const onSubmit = (data: any) => {
-    const res: Promise<RegisterType> = registerRequest({
+    worker.port.postMessage(['post', '/register', {
       name: data.name,
       email: data.email,
       password: data.password,
       fullname: data.fullname,
       secretAnswer: data.secretAnswer,
       secretQuestion: data.secretQuestion
-    });
-    res.then((data) => {
-      if(!!data.errors) {
-        setErrors(data.errors);
+    }])
+    worker.port.onmessage = function (e: any) {
+      let data = e.data[0];
+      if(!!data['errors']) {
+        setErrors(data['errors']);
       } else {
-        setErrors({});
+        setErrors('');
         setState({
           ...state,
           id: data.id,
           isLogin: true
         })
-        history.push('/tasks');
+        history.push('/login');
       }
-    })
+    }
   };
 
   return (

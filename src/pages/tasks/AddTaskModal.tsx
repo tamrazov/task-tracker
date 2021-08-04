@@ -21,6 +21,7 @@ const AddTaskModal: React.SFC<AddTaskModalProps> = () => {
     time_end: new Date(),
   }});
   const [state, setState] = useContext(StateContext);
+  const worker = state.worker;
   const [errors, setErrors] = useState<any>({});
   const [show, setShow] = useState(false);
 
@@ -28,26 +29,27 @@ const AddTaskModal: React.SFC<AddTaskModalProps> = () => {
   const handleShow = () => setShow(true);
 
   const onSubmit = (data: any) => {
-    const res = addTaskRequest({
+    worker.port.postMessage(['post', '/tasks', {
       ...data,
       status: +data.status,
       priority: +data.priority,
       time_start: moment(data.time_start).toISOString(),
       time_end: moment(data.time_end).toISOString()
-    });
-    res.then((data) => {
-      if(!!data.errors) {
-        setErrors(data.errors);
+    }])
+    worker.port.onmessage = function (e: any) {
+      let data = e.data[0];
+      if(!!data['errors']) {
+        setErrors(data['errors']);
       } else {
         setErrors({});
         setState({
           ...state,
-          tasks: data.tasks
+          tasks: data['tasks']
         });
         form.reset();
         handleClose();
       }
-    })
+    }
   };
 
   return (

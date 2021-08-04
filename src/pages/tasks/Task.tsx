@@ -26,6 +26,7 @@ const Task = ({task}: TaskProps) => {
     }
   });
   const [state, setState] = useContext(StateContext);
+  const worker = state.worker;
   const [errors, setErrors] = useState<any>({});
   const [show, setShow] = useState(false);
   const arrStatuses = {
@@ -53,38 +54,41 @@ const Task = ({task}: TaskProps) => {
   }
 
   const onSubmit = (data: any) => {
-    const res = editTaskRequest({
+    worker.port.postMessage(['put', '/tasks', {
       ...data,
       id: task.id,
       time_start: moment(data.time_start).toISOString(),
       time_end: moment(data.time_end).toISOString(),
       fact_time_start: moment(data.fact_time_start).toISOString(),
       fact_time_end: moment(data.fact_time_end).toISOString(),
-    });
-    res.then((data) => {
-      if(!!data.errors) {
-        setErrors(data.errors);
+    }])
+    worker.port.onmessage = function (e: any) {
+      let data = e.data[0];
+      if(!!data['errors']) {
+        setErrors(data['errors']);
       } else {
         setErrors({});
         setState({
           ...state,
-          tasks: data.tasks
+          tasks: data['tasks']
         });
+        form.reset();
         handleClose();
       }
-    })
+    }
   }
 
   const handleRemove = () => {
-    const res = removeTaskRequest(task.id);
-    res.then((data) => {
+    worker.port.postMessage(['delete', '/tasks', task.id])
+    worker.port.onmessage = function (e: any) {
+      let data = e.data[0];
       setErrors({});
       setState({
         ...state,
         tasks: data.tasks
       });
       handleClose();
-    });
+    }
   }
 
   return (
