@@ -11,15 +11,15 @@ import {tasks, users} from './db';
 import {validateEmail, getRandomArg} from './utils/utils';
 import isEmpty from 'lodash.isempty';
 
-// if ('serviceWorker' in navigator) {
-//   window.addEventListener('load', () => {
-//     navigator.serviceWorker.register('/sw.js').then(registration => {
-//       console.log(`Service Worker registred ${registration.scope}`);
-//     }, err => {
-//       console.log(`Service Worker registration failed ${err}`);
-//     })
-//   })
-// }
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').then(registration => {
+      console.log(`Service Worker registred ${registration.scope}`);
+    }, err => {
+      console.log(`Service Worker registration failed ${err}`);
+    })
+  })
+}
 
 export const TOKEN = 'QpwL5tke4Pnpja7X4';
 
