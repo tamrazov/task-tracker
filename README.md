@@ -5,8 +5,8 @@
 > My telegram: @Papi180  
 > My [VK]
 ---
-##### The app is hosted at [task-tracker](https://task-tracker-f8b21.web.app/)
----
+### Task-tracker
+The app is hosted at [task-tracker](https://task-tracker-f8b21.web.app/)
 > This is Single Page application. React applications without using third-party libraries in terms of state management, working with workers and event management. As an application, it is proposed to write a task tracker with a division into front-end and back-end parts. Interaction between the parts of the application inside the browser is supposed to be done through messaging (postMessage), with the server part through XmlHttpRequest (fetch).
 ---
 ##### auth
