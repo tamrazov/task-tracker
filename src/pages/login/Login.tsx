@@ -18,17 +18,19 @@ export interface LoginProps {
 const Login: React.SFC<LoginProps> = () => {
   const history = useHistory();
   const [state, setState] = useContext(StateContext);
+  const worker = state.worker;
   const [error, setError] = useState('');
   const form = useForm<FormData>();
 
   const onSubmit = (data: any) => {
-    const res: Promise<LoginType> = loginRequest({
+    worker.port.postMessage(['post', '/login', {
       email: data.email,
       password: data.password
-    });
-    res.then((data) => {
-      if(!!data.error) {
-        setError(data.error);
+    }])
+    worker.port.onmessage = function (e: any) {
+      let data = e.data[0];
+      if(!!data['errors']) {
+        setError(data['errors']);
       } else {
         setError('');
         setState({
@@ -36,9 +38,8 @@ const Login: React.SFC<LoginProps> = () => {
           id: data.id,
           isLogin: true
         })
-        history.push('/tasks');
       }
-    })
+    }
   };
 
   return (

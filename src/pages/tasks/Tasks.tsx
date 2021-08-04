@@ -15,6 +15,7 @@ export interface TasksProps {
  
 const Tasks: React.SFC<TasksProps> = () => {
   const [state, setState] = useContext(StateContext);
+  const worker = state.worker;
   const [visibleFilters, setVisibleFilters] = useState(false);
   const [filters, setFilters] = useState({
     name: false,
@@ -25,18 +26,20 @@ const Tasks: React.SFC<TasksProps> = () => {
   const [error, setError] = useState('');
 
   const fetchTasks = (str: string) => {
-    const res: Promise<TasksListType> = getTasksListRequest(str);
-    res.then((data) => {
+    worker.port.postMessage(['get', '/tasks', str])
+    worker.port.onmessage = function (e: any) {
+      let data = e.data;
       if (!!data.errors && !!data.errors.error) {
         setError(data.errors.error);
       } else {
         setState({
           ...state,
-          tasks: data.list
+          tasks: data,
+          isLogin: true
         });
         setError('');
       }
-    });
+    }
   }
 
   const dFilterName = useCallback(debounce<typeof fetchTasks>(fetchTasks, 300), []);
@@ -86,7 +89,7 @@ const Tasks: React.SFC<TasksProps> = () => {
                       <DatePicker
                         showTimeSelect
                         selected={date}
-                        onChange={(value: any) => console.log(value)}
+                        onChange={(value: any) => {}}
                         className="datepicker"
                         customInput={<Form.Control />}
                       />

@@ -52,6 +52,7 @@
     "@types/react-bootstrap": "0.32.25",
     "@types/react-datepicker": "3.1.8",
     "@types/react-router-dom": "5.1.7",
+    "@types/sharedworker": "0.0.31",
     "miragejs": "0.1.41"
   }
 }

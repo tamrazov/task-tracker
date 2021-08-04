@@ -18,6 +18,7 @@ export interface ForgorPassProps {
 const ForgorPass: React.SFC<ForgorPassProps> = () => {
  const history = useHistory();
   const [state, setState] = useContext(StateContext);
+  const worker = state.worker;
   const [mode, setMode] = useState('');
   const [secretQuestion, setSecretQuestion] = useState('');
   const [secretAnswer, setSecretAnswer] = useState('');
@@ -39,18 +40,31 @@ const ForgorPass: React.SFC<ForgorPassProps> = () => {
         setError('invalid answer');
       }
     } else {
-      const res: Promise<ForgotType> = forgotEmailRequest(data.email);
-      res.then((data) => {
-        if(!!data.error) {
-          setError(data.error);
-        } else {
-          setError('');
-          setMode('recovery');
-          setSecretQuestion(data.secretQuestion || '');
-          setSecretAnswer(data.secretAnswer || '');
-          setId(data.id || '')
-        }
-      })
+      worker.port.postMessage(['post', '/forgot', data.email])
+      worker.port.onmessage = function (e: any) {
+      let data = e.data[0];
+      if (!!data.errors && !!data.errors.error) {
+        setError(data.errors.error);
+      } else {
+        setError('');
+        setMode('recovery');
+        setSecretQuestion(data.secretQuestion || '');
+        setSecretAnswer(data.secretAnswer || '');
+        setId(data.id || '')
+      }
+    }
+      // const res: Promise<ForgotType> = forgotEmailRequest(data.email);
+      // res.then((data) => {
+      //   if(!!data.error) {
+      //     setError(data.error);
+      //   } else {
+      //     setError('');
+      //     setMode('recovery');
+      //     setSecretQuestion(data.secretQuestion || '');
+      //     setSecretAnswer(data.secretAnswer || '');
+      //     setId(data.id || '')
+      //   }
+      // })
     }
   };
 

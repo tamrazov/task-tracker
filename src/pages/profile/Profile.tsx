@@ -11,32 +11,35 @@ export interface ProfileComponentProps {
  
 const ProfileComponent: React.SFC<ProfileComponentProps> = () => {
   const [state, setState] = useContext(StateContext);
+  const worker = state.worker;
   const [profile, setProfile] = useState<Profile | any>(null);
   const [errors, setErrors] = useState<any>({});
   const form = useForm();
   const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = (data: any) => {
-    setIsLoading(true);
-    const res = editProfileRequest({
+    worker.port.postMessage(['put', '/profile', {
       ...data,
-      id: state.id,
-    });
-    res.then((data) => {
-      if(!!data.errors) {
-        setErrors(data.errors);
+      id: '1'
+    }])
+    worker.port.onmessage = function (e: any) {
+      let data = e.data[0];
+      if(!!data['errors']) {
+        setErrors(data['errors']);
       } else {
         setErrors({});
-        setProfile(data.user);
+        setProfile(data['currentUser']);
       }
-    })
-    setTimeout(() => setIsLoading(false), 1000);
-  };
+    }
+};
 
   useEffect(() => {
     const fetchProfile = async () => {
-      const res: {user: Profile} = await getProfileRequest(state.id);
-      setProfile(res.user);
+      worker.port.postMessage(['get', '/profile', state.id])
+      worker.port.onmessage = function (e: any) {
+        let data = e.data;
+        setProfile(data);
+      }
     }
 
     fetchProfile();
