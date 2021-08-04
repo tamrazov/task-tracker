@@ -5,6 +5,7 @@ type StateProviderProps = {children: React.ReactNode};
 const StateContext = createContext<any>(undefined);
 
 const worker = new SharedWorker("/sharedWorker.js");
+
 worker.port.start();
  
 function StateProvider ({children}: StateProviderProps) {
